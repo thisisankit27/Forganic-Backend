@@ -28,7 +28,25 @@ class ListCartView(ListAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return CartItem.objects.filter(user=self.request.user)
+        user_cart_items = CartItem.objects.filter(user=self.request.user)
+
+        for cart_item in user_cart_items:
+            # Calculate the delivery charge for each item
+            # Modify this to get the user's address
+            start_address = "Attarsuiya"
+            # Modify this to get the seller's address
+            end_address = "Gurugram"
+            weight = 1  # Modify this to get the item's weight
+
+            # Call the function to get the delivery price
+            delivery_price = CartItem.get_delivery_price(
+                start_address, end_address, weight)
+
+            # Update the delivery_charge field for the cart item
+            cart_item.delivery_charge = delivery_price
+            cart_item.save()
+
+        return user_cart_items
 
 
 class UpdateCartItemQuantityView(UpdateAPIView):
