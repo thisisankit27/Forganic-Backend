@@ -28,7 +28,7 @@ class ListCartView(ListAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        user_cart_items = CartItem.objects.filter(user=self.request.user)
+        user_cart_items = CartItem.objects.filter(user=self.request.user, is_payment_confirmed=False)
 
         for cart_item in user_cart_items:
             # Calculate the delivery charge for each item

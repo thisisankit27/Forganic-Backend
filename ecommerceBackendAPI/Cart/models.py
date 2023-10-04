@@ -9,6 +9,7 @@ class CartItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
+    is_payment_confirmed = models.BooleanField(default=False)
     delivery_charge = models.PositiveIntegerField(default=0)
 
     def get_delivery_price(start_address, end_address, weight):
