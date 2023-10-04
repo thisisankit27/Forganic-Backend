@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'our_product',
     'article',
     'Cart',
+    'payment_gateway',
 ]
 
 REST_FRAMEWORK = {
@@ -152,3 +153,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Payment Gateway
+
+RAZORPAY_KEY_ID = env('RAZORPAY_API_KEY')
+RAZORPAY_KEY_SECRET = env('RAZORPAY_API_SECRET')
