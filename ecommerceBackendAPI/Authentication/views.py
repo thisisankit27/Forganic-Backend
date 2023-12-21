@@ -123,9 +123,9 @@ class VerifyEmailOTP(generics.CreateAPIView):
                         user=user, verified=True
                     )
                     verification.save()
-                    return Response({'message': 'Email Verified successfully.'})
+                    return Response({'message': 'Email Verified successfully.', 'email_verified': True}, status=status.HTTP_200_OK)
                 else:
-                    return Response({'error': 'Invalid OTP.'}, status=status.HTTP_400_BAD_REQUEST)
+                    return Response({'error': 'Invalid OTP.', 'email_verified': False}, status=status.HTTP_400_BAD_REQUEST)
             except jwt.ExpiredSignatureError:
                 otp = generate_and_send_otp_email(
                     user.email, 'Email Verification OTP', user.id)
